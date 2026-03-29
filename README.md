@@ -2,8 +2,6 @@
 
 An intelligent, interactive, and responsive web application designed to help students study smarter. Powered by the **Groq API** (Llama 3 70B) and built with **Next.js 16**, this application offers real-time streaming chat, automatic quiz generation, and content summarization.
 
-![Study Buddy Interface](https://via.placeholder.com/800x400?text=AI+Study+Buddy+Interface)
-
 ## ✨ Features
 
 - **Real-Time Streaming Chat:** Instant, natural, and low-latency study-focused conversations using Groq's high-speed Llama 3 processor.
