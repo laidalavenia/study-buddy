@@ -80,9 +80,8 @@ export function ChatInterface({
         ) : (
           messages.map((message) => {
             const textContent = message.parts
-              ?.filter((p: any) => p.type === "text")
-              .map((p: any) => p.text)
-              .join("\n") || "";
+              ? message.parts.filter((p: any) => p.type === "text").map((p: any) => p.text).join("\n")
+              : "";
 
             return (
               <MessageBubble

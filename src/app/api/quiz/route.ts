@@ -1,4 +1,4 @@
-import { openai } from '@ai-sdk/openai';
+import { groq } from '@ai-sdk/groq';
 import { generateObject } from 'ai';
 import { z } from 'zod';
 
@@ -19,7 +19,7 @@ export async function POST(req: Request) {
     const { topic } = await req.json();
 
     const { object } = await generateObject({
-      model: openai('gpt-4o-mini'),
+      model: groq('llama-3.3-70b-versatile'),
       system: `You are an AI Study Tutor generating a high-quality quiz.
 The quiz should contain a mix of multiple-choice and short-answer questions (about 3-5 total).
 Make sure multiple-choice options are distinct and plausible.

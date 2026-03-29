@@ -1,4 +1,4 @@
-import { openai } from '@ai-sdk/openai';
+import { groq } from '@ai-sdk/groq';
 import { streamText } from 'ai';
 
 // Allow streaming responses up to 30 seconds
@@ -10,11 +10,11 @@ export async function POST(req: Request) {
   try {
     const { messages } = await req.json();
 
-    if (!process.env.OPENAI_API_KEY) {
+    if (!process.env.GROQ_API_KEY) {
       const mockStream = new ReadableStream({
         async start(controller) {
           const encoder = new TextEncoder();
-          const responseText = "Hello! It looks like you haven't set up your OpenAI API key yet. \n\nYou can generate one at [platform.openai.com/api-keys](https://platform.openai.com/api-keys). Once you have it, add it to a `.env.local` file like this:\n\n```\nOPENAI_API_KEY=your_key_here\n```\n\nRestart the development server, and I'll be ready to help you study!";
+          const responseText = "Hello! It looks like you haven't set up your Groq API key yet. \n\nYou can generate one for free at [console.groq.com/keys](https://console.groq.com/keys). Once you have it, add it to a `.env.local` file like this:\n\n```\nGROQ_API_KEY=your_key_here\n```\n\nRestart the development server, and I'll be ready to help you study!";
           
           const words = responseText.split(" ");
           for (let i = 0; i < words.length; i++) {
@@ -33,7 +33,7 @@ export async function POST(req: Request) {
     }
 
     const result = await streamText({
-      model: openai('gpt-4o-mini'),
+      model: groq('llama-3.3-70b-versatile'),
       system: systemPrompt,
       messages: messages.map((m: any) => {
         // Handle new AI SDK 6.x message format (parts) or previous format (content)
@@ -48,7 +48,7 @@ export async function POST(req: Request) {
       }),
     });
 
-    return result.toTextStreamResponse();
+    return result.toUIMessageStreamResponse();
   } catch (error) {
     console.error("AI chat error:", error);
     return new Response(JSON.stringify({ error: "Failed to generate AI response" }), { 
