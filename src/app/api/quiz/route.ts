@@ -8,7 +8,7 @@ const quizSchema = z.object({
   questions: z.array(z.object({
     type: z.enum(["multiple-choice", "short-answer"]),
     question: z.string().describe("The text of the question."),
-    options: z.array(z.string()).optional().describe("Provide 4 options if type is multiple-choice. Otherwise omit."),
+    options: z.array(z.string()).describe("Provide 4 options if type is multiple-choice. Otherwise use an empty array []."),
     correctAnswer: z.string().describe("The exact correct option text for multiple-choice, or a brief sample correct answer for short-answer."),
     explanation: z.string().describe("A brief explanation of why the answer is correct.")
   }))
